@@ -1,0 +1,69 @@
+\documentclass{beamer}
+\usetheme{Goettingen}
+
+\makeatletter
+  \setbeamertemplate{sidebar \beamer@sidebarside}
+  {
+    \beamer@tempdim=\beamer@sidebarwidth%
+    \advance\beamer@tempdim by -6pt%
+    \vskip4em%
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \hspace{9mm}\includegraphics[width=1cm]{imagenes/maps.png}
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+  }%
+
+  \ifx\beamer@sidebarside\beamer@lefttext%
+    \defbeamertemplate*{sidebar right}{sidebar theme}
+    {%
+      \vfill%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt}
+  \fi
+
+\setbeamertemplate{section in sidebar}%{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar}{\insertsectionheadnumber
+~\insertsectionhead}%
+  }%
+}
+\setbeamertemplate{section in sidebar shaded}%{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar shaded}{\insertsectionheadnumber
+~\insertsectionhead}%
+  }%
+}
+\makeatother
+
+% contenido de la caratula
+\title{\textbf{Path Finder}}
+\subtitle{Aplicaci\'on de localizaci\'on para Android}
+\author{Almansi, Castro, Vileri\~no}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\vspace{-20mm}
+\begin{center}
+  \includegraphics[height=2cm]{imagenes/maps.png}
+  \includegraphics[height=2cm]{imagenes/android.png}
+\end{center}
+\end{frame}
+
+\input{diapo1.tex}
+\input{diapo2.tex}
+\input{diapo3.tex}
+\input{diapo4.tex}
+
+\end{document}

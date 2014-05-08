@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PathFinder</string>
+    <string name="server_base_url">http://186.138.101.95:3412</string>
+
+    <!-- inicio -->
+    <string name="boton_ingresar_i">Ver mi recorrido</string>
+    <string name="boton_activar_i">Activar este dispositivo</string>
+
+    <!-- ingreso -->
+    <string name="title_activity_ingresar">Ver mi recorrido</string>
+	<string name="campo_email_g">Email</string>
+	<string name="campo_contrasena_g">Contraseña</string>
+	<string name="boton_ingresar_g">Acceder</string>
+	<string name="formulario_invalido_titulo_g">Hay un error en tus datos</string>
+	<string name="formulario_invalido_msj_g">Por favor, verificá que los campos no estén vacíos.</string>
+	<string name="descargar_recorrido_error_titulo">Hubo un error descargando tu recorrido</string>
+	<string name="descargar_recorrido_error_msj_mala_comunicacion">Falló la comunicación con el servidor</string>
+	<string name="descargar_recorrido_error_msj_no_existe">El email que ingresaste no esta asociado a ningún dispositivo.</string>
+	<string name="descargar_recorrido_error_msj_contrasena_equivocada">La contraseña que ingresaste es incorrecta.</string>
+	<string name="descargar_recorrido_error_msj_desconocido">Ocurrió un error inesperado</string>
+
+	<!-- activar -->
+    <string name="title_activity_activar">Activar este dispositivo</string>
+	<string name="campo_email_a">Email</string>
+	<string name="campo_contrasena_a">Contraseña</string>
+	<string name="campo_repetir_contrasena_a">Rep. Contraseña</string>
+	<string name="boton_activar_a">Activar</string>
+	<string name="formulario_invalido_titulo_a">Hay un error en tus datos</string>
+	<string name="formulario_invalido_msj_a">Por favor, verificá que los campos no estén vacíos y que las contraseñas sean iguales.</string>
+	<string name="activar_dispositivo_exito_msj">Ya se activó el dispositivo!\n A partir de ahora se va a empezar a guardar tu recorrido.</string>
+	<string name="activar_dispositivo_error_titulo">Hubo un error durante la activación</string>
+	<string name="activar_dispositivo_error_msj_ya_existe">Ya hay un dispositivo registrado con el email que ingresaste.</string>
+	<string name="activar_dispositivo_error_msj_mala_comunicacion">Falló la comunicación con el servidor</string>
+	<string name="activar_dispositivo_error_msj_desconocido">Ocurrió un error inesperado</string>
+
+	<!-- mapa -->
+    <string name="title_activity_mapa">Mapa</string>
+	<string name="boton_compartir_gmail_m">Gmail</string>
+	<string name="boton_compartir_twitter_m">Twitter</string>
+	<string name="texto_compartir_m">Compartí tu última posición: </string>
+	<string name="msj_recorrido_vacio">Todavía no hay posiciones guardadas para armar tu recorrido</string>
+
+</resources>

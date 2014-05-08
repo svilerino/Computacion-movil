@@ -1,0 +1,4 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Descripci\IeC {\'o}n y requerimientos}{3}
+\contentsline {section}{\numberline {2}Arquitectura}{4}
+\contentsline {section}{\numberline {3}Dependencias}{5}

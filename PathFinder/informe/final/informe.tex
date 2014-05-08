@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, graphics, setspace, framed, graphicx, listings}
+\usepackage{caratula} %Para armar el cuadro de integrantes
+\usepackage{booktabs} % To thicken table lines
+\usepackage{xcolor}
+
+
+
+\lstset { %
+    language=C++,
+    basicstyle=\footnotesize,% basic font setting
+}
+\usepackage{fancyvrb}
+\usepackage{color}
+
+\input{macros}
+
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\eme}{\mathcal{M}_X}
+\newcommand{\emeh}{\mathcal{M}_X'}
+\newcommand{\ere}{\mathcal{R}_X}
+\newcommand{\ereh}{\mathcal{R}_X'}
+
+\begin{document}
+
+
+%---------------------
+
+\integrante{Almansi, Emilio Guido}{ealmansi@gmail.com}
+\integrante{Castro, Alan}{alancastro90@gmail.com}
+\integrante{Vileriño, Silvio}{svilerino@gmail.com}
+
+\def\Materia{Comptación Móvil}
+\cuatrimestre{1}
+\anio{2013}
+\def\Titulo{\LARGE PathFinder - Aplicación para Android}
+\def\Grupo{ (borrame) }
+
+\def\Fecha{16 de mayo de 2013}
+
+%----- CARATULA -----%
+
+\thispagestyle{empty}
+
+\begin{center}
+	\includegraphics[scale = 0.25]{imagenes/logo_uba.jpg}
+\end{center}
+
+\vspace{5mm}
+
+\begin{center}
+	{\textbf{\large UNIVERSIDAD DE BUENOS AIRES}}\\[1.5em]
+	{\textbf{\large Departamento de Computaci\'{o}n}}\\[1.5em]
+    {\textbf{\large Facultad de Ciencias Exactas y Naturales}}\\
+    \vspace{20mm}
+    {\LARGE\textbf{\Materia}}\\[1em]    
+    \vspace{5mm}
+    {\LARGE\textbf{Segundo cuatrimestre de \elanio}}\\
+    \vspace{15mm}
+    {\Large \textbf{\Titulo}}\\[1em]
+    \vspace{15mm}
+    {\textbf{\Large \Fecha}}\\ 
+     \vspace{5mm}
+   
+   \vspace{10mm}
+    \textbf{\tablaints}
+
+    \end{center}
+
+
+
+%-----------------------
+
+\newpage
+
+\tableofcontents
+
+\medskip
+
+\newpage
+
+\section{Descripción y requerimientos}
+\vspace*{2mm}
+\vspace*{2mm}
+\vspace*{2mm}
+\vspace*{2mm}
+
+La aplicación permite realizar al usuario principalmente tres acciones: activar su dispositivo para comenzar a guardar su ubicación de forma periódica, visualizar la sucesión de puntos guardados unidos mediante rectas en un mapa dentro de la aplicación y compartir su posición más reciente.
+\vspace*{2mm}
+
+Para realizar el proceso de activación del dispositivo y el almacenamiento de los datos, la aplicación se comunica con un servidor dedicado que cumple una función similar a la de una RESTful API, atendiendo tres tipos de pedidos por parte de la aplicación:
+\begin{itemize}
+  \item Activación: registra el dispositivo bajo un email y contraseña, que luego son necesarios para acceder a los datos.
+  \item Actualización: agrega un nuevo punto de tipo (latitud, longitud, fecha y hora) en la secuencia de puntos de un dispositivo.
+  \item Descarga: devuelve el historial de actualizaciones de un dispositivo particular.
+\end{itemize}
+\vspace*{2mm}
+
+La visualización del recorrido se realiza sobre un mapa dentro de la aplicación, permitiendo desde la misma interfaz compartir la ubicación más reciente por email mediante el explorador del dispositivo o la aplicación Gmail, presente por defecto en Android.
+\vspace*{2mm}
+
+Alternativamente, la última actualización se puede compartir a través de un tweet, mediante un método de la API provista por Twitter\footnote{Documentación de Web Intents: https://dev.twitter.com/docs/intents\#tweet-intent.}. Esta opción al igual que la anterior, comparte la ubicación mediante un link a Google Maps con un marcador en las coordenadas correspondientes.
+
+\newpage
+\section{Arquitectura}
+\vspace*{2mm}
+\vspace*{2mm}
+\vspace*{2mm}
+\vspace*{2mm}
+
+La aplicación esta formada por cuatro Activities: Inicio, Ingresar, Activar y Mapa.
+\vspace*{2mm}
+
+InicioActivity consta sencillamente del logo y título de la aplicación, y dos botones redireccionando a Ingresar y Activar (esta última solo es accesible cuando el dispositivo aún no fue activado).
+\vspace*{2mm}
+
+Las otras tres Activities siguen el esquema MVC, con una clase de modelo y una de vista, atribuyendo el rol de controlador íntegramente a la clase de tipo Activity. Se puede ver en la figura \ref{fig:uml} que efectivamente toda la comunicación entre el modelo y la vista se genera mediante el controlador.
+\vspace*{2mm}
+
+IngresarActivity y ActivarActivity son similares ya que ambas constan de un formulario y representan una acción puntual que necesita comunicación con el servidor. Por eso es que ambas se relacionan en el diagrama con clases de tipo AsyncTask (Descargar y Activar, respectivamente), ya que a través de ellas se realizan los pedidos al servidor. La Activity conteniendo el mapa no realiza ninguna comunicación con el servidor ya que simplemente consume los datos obtenidos mediante DescargarRecorridoAsyncTask.
+\vspace*{2mm}
+
+Por último, la actualización de las sucesivas posiciones del dispositivo debe ser independiente de la aplicación; es decir, debe comunicarse con el servidor independientemente de si el usuario está utilizando PathFinder. Para ello se utilizó el recurso de servicios Android en la clase GPSBackgroundService, enviando los datos al servidor mediante la clase EnviarCoordenadasAsyncTask. Para garantizar que el servicio se lance al encenderse el dispositivo, se implementó la clase GPSBackgroundServiceLauncher que exitende BroadcastReceiver y se subscribe al intent BOOT\_COMPLETED, inicializando el servicio al ser llamado.
+
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[scale=0.4]{imagenes/UML.png}
+\end{center}
+\caption{Diagrama generado de forma automática con las relaciones entre las diferentes clases que componen la aplicación.}
+\label{fig:uml}
+\end{figure}
+
+\newpage
+\section{Dependencias}
+
+Para visualizar un mapa dentro de la aplicación se utilizó Google Maps Android API v2, por lo cual para correr la aplicación es necesario instalar Google Play Services desde el SDK Manager y configurar las dependencias del proyecto y el Manifest.\footnote{Instrucciones completas para utilizar Google Maps Android API v2: https://developers.google.com/maps/documentation/android/start.}
+\vspace*{2mm}
+
+El servidor dedicado se desarrolló en Node.js; para ejecutarlo solo es necesario instalar la plataforma\footnote{Descarga e instalación de Node.js: http://nodejs.org/.} y lanzar la aplicación JavaScript provista con el código fuente de PathFinder.
+
+\end{document}
